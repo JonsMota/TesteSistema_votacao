@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Votação</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Sistema de Votação</p>
+          <h1>CRUD de enquetes com votação em tempo real</h1>
+          <p class="subtitle">
+            Crie, edite, exclua, liste e vote em enquetes. O resultado atualiza automaticamente em todas as abas.
+          </p>
+        </div>
+        <div class="status-card">
+          <span class="status-label">Servidor</span>
+          <strong id="serverStatus">Conectando...</strong>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card form-card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Cadastro</p>
+              <h2 id="formTitle">Nova enquete</h2>
+            </div>
+            <button id="cancelEditButton" class="ghost-button hidden" type="button">Cancelar edição</button>
+          </div>
+
+          <form id="pollForm" class="form">
+            <label>
+              Título
+              <input id="title" type="text" placeholder="Ex.: Qual linguagem você prefere?" />
+            </label>
+
+            <div class="two-columns">
+              <label>
+                Início
+                <input id="startAt" type="datetime-local" />
+              </label>
+              <label>
+                Término
+                <input id="endAt" type="datetime-local" />
+              </label>
+            </div>
+
+            <div class="options-head">
+              <div>
+                <p class="eyebrow">Opções</p>
+                <h3>Adicione pelo menos 3 respostas</h3>
+              </div>
+              <button id="addOptionButton" class="ghost-button" type="button">Adicionar opção</button>
+            </div>
+
+            <div id="optionsContainer" class="options"></div>
+            <p id="formMessage" class="message" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Salvar enquete</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Lista</p>
+              <h2>Enquetes cadastradas</h2>
+            </div>
+          </div>
+          <div id="pollList" class="poll-list"></div>
+        </article>
+
+        <article class="card detail-card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Detalhes</p>
+              <h2>Tela de votação</h2>
+            </div>
+          </div>
+          <div id="pollDetail" class="empty-state">Selecione uma enquete para ver os detalhes.</div>
+        </article>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
