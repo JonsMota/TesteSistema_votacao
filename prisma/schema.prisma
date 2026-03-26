@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Poll {
+  id        Int          @id @default(autoincrement())
+  title     String
+  startAt   DateTime
+  endAt     DateTime
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  options   PollOption[]
+
+  @@map("polls")
+}
+
+model PollOption {
+  id        Int      @id @default(autoincrement())
+  pollId    Int
+  text      String
+  votes     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  poll      Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+
+  @@map("poll_options")
+}
